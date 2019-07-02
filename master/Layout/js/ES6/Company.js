@@ -16,6 +16,13 @@ class Company{
         return -1;
     }
 
+    findEmployee(id){
+        for(let e of this.employeeList){
+            if(e._id === id)
+                return e;
+        }
+    }
+
     deleteEmployee(id){
         var found = this.employeeArr.findIndex(x => x._id === id);
 
@@ -42,5 +49,23 @@ class Company{
                 result = [...result, emp];
         }
         return result;
+    }
+
+    sortEmployee(type){
+        let less, greater;
+        if(type === 1){//ascending
+            less = -1;
+            greater = 1;
+        }else{//descending
+            less = 1;
+            greater = -1;
+        }
+        this.employeeList.sort((a,b)=>{
+            let x = a._id.toLowerCase();
+            let y = b._id.toLowerCase();
+            if(x < y) return less;
+            if(x > y) return greater;
+            return 0;
+        })
     }
 }

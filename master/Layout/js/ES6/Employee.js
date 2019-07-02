@@ -8,7 +8,7 @@
         this.startedAt = startedAt;
         this.position = position;
 
-        this.properties = [this._id, this.name, this.email, this.password, this.startedAt, this.position];
+        this.properties = [this._id, this.name, this.email, this.startedAt, this.position];
     }
 }
 
