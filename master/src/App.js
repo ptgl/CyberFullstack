@@ -1,14 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import "./css/index.css";
-
-function App() {
-  return (
-    <div>
-      hello
-    </div>
-  );
+import React, { Component } from 'react';
+import Homepage from './containers/homepage';
+class App extends Component {
+  render() {
+    return (
+       <Homepage/>
+   );
+  }
 }
 
 export default App;
