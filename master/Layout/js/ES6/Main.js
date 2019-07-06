@@ -1,8 +1,8 @@
 var company = new Company();
-company.addEmployee(new Employee("a","name","ddd","werwerfg"));
-company.addEmployee(new Employee("b","name","ddd","werwerfg"));
-company.addEmployee(new Employee("c","name","ddd","werwerfg"));
-company.addEmployee(new Employee("c","name","ddd","werwerfg"));
+company.addEmployee(new Employee("1a","hung","hung@mail.com","pass","1/1/2019","staff"));
+company.addEmployee(new Employee("2b","hieu","hieu@mail.com","pass","1/1/2019","staff"));
+company.addEmployee(new Employee("3c","hai","hai@mail.com","pass","1/1/2019","boss"));
+company.addEmployee(new Employee("4d","hao","hao@mail.com","pass","1/1/2019","boss"));
 
 showModal = (modal_title, readonly, type)=>{ //type 1: add, type 2: edit
     document.getElementById("header-title").innerHTML = modal_title;
@@ -83,6 +83,7 @@ showList = (employeeList)=>{
 
         // add event
         editEmployee(`edit_${employee._id}`);
+        deleteEmployee(`delete_${employee._id}`);
     }
 
 }
@@ -90,7 +91,7 @@ showList = (employeeList)=>{
 //Add a new employee
 document.getElementById("btnThem").addEventListener("click", ()=>{
     clearForm();
-    showModal("Add a new employee");
+    showModal("Add a new employee", false, 1);
 })
 
 document.getElementById("btnThemNV").addEventListener("click", ()=>{
@@ -142,6 +143,28 @@ editEmployee = (idBtn)=>{
     })
 }
 
+//Delete employee
+deleteEmployee = (idBtn)=>{
+    document.getElementById(idBtn).addEventListener("click",()=>{
+        swal({
+            title: "Are you sure you want to delete it?",
+            text:" Data can't be recovered after being deleted!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete)=>{
+            if(willDelete){
+                let employeeId = idBtn.split('_')[1];
+                company.deleteEmployee(employeeId);
+                showList(company.employeeList);
+                swal("Delete successfully",{icon: "success"})
+            }else{
+                swal("Data still be safe")
+            }
+        })
+    })
+}
+
 // Search Employee by Name
 document.getElementById("searchName").addEventListener("keyup",()=>{
     let key = document.getElementById("searchName").value;
@@ -153,14 +176,14 @@ document.getElementById("searchName").addEventListener("keyup",()=>{
 document.getElementById("SapXepTang").addEventListener("click",()=>{
     document.getElementById("SapXepTang").style.display = "none";
     document.getElementById("SapXepGiam").style.display = "inline";
-    company.sortEmployee(1);
+    company.sortEmployee(2);
     showList(company.employeeList);
 })
 
 document.getElementById("SapXepGiam").addEventListener("click",()=>{
     document.getElementById("SapXepTang").style.display = "inline";
     document.getElementById("SapXepGiam").style.display = "none";
-    company.sortEmployee(2);
+    company.sortEmployee(1);
     showList(company.employeeList);
 })
 

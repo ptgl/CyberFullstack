@@ -24,10 +24,10 @@ class Company{
     }
 
     deleteEmployee(id){
-        var found = this.employeeArr.findIndex(x => x._id === id);
+        var found = this.employeeList.findIndex(x => x._id === id);
 
         if(found !== -1){
-            this.employeeArr.splice(found, 1);
+            this.employeeList.splice(found, 1);
         }else{
             alert("Not found!");
         }
