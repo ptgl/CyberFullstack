@@ -68,7 +68,10 @@ showList = (employeeList)=>{
 
         for(let j = 0; j < employee.properties.length; j++){
             td = document.createElement("td");
-            td.innerHTML = employee.properties[j];
+            if(j == employee.properties.length-1){ //set selected position value
+                td.innerHTML = employee.properties[j] === "" ? "" : (employee.properties[j] === "boss" ? "Sếp" : "Nhân viên thuòng");
+            }else
+                td.innerHTML = employee.properties[j];
             
             tr.appendChild(td);
         }
