@@ -4,6 +4,7 @@ export default class ListOfTasks{
     }
 
     addNewTask = (task)=>{
+        console.log(task);
         this.list = [...this.list, task]
     }
 
