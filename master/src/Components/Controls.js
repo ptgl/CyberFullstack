@@ -18,7 +18,7 @@ class Controls extends Component {
           </h3>
         </div>
 
-        <AddNewTask />
+        <AddNewTask addNewTask={this.props.addNewTask} />
 
         <InitializeTask />
 

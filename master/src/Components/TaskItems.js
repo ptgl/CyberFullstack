@@ -6,7 +6,7 @@ import THead from "./TaskItems/THead";
 class TaskItems extends Component {
   render() {
 
-    let items = this.props.tasks.map((o, idx) => <Item key={idx} data={o}/>);
+    let items = this.props.tasks.map((o, idx) => <Item key={idx} data={o} editTask={this.props.editTask}/>);
 
     return (
       <div className="col-md-9 px-0">

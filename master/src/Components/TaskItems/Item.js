@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
 class Item extends Component {
+
+  handleEditing = (task)=>{
+    this.props.editTask(task);
+  }
+
   render() {
     let {
       id,
@@ -18,6 +23,7 @@ class Item extends Component {
 
     let labels = labelArr.map((o, idx) => {
       let color;
+      //set label color
       switch (o.toLowerCase()) {
         case "frontend":
           color = "#389E0D"
@@ -31,7 +37,7 @@ class Item extends Component {
         default:
           color = "red";
       }
-      return <i className="fa fa-circle" style={{ color }} />;
+      return <i key={idx} className="fa fa-circle" style={{ color }} />;
     });
 
     return (
@@ -54,7 +60,8 @@ class Item extends Component {
         </td>
         <td className="text-center">{assignedTo}</td>
         <td className="text-center">
-          <button type="button" className="btn btn-outline-primary">
+          <button type="button" className="btn btn-outline-primary" data-toggle="modal"
+        data-target="#modalTask" onClick={()=>this.handleEditing(this.props.data)}>
             Sửa
           </button>
           <button type="button" className="btn btn-outline-success">
