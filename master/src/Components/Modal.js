@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Checkbox, CheckboxGroup } from "react-checkbox-group";
 
 class Modal extends Component {
   constructor(props) {
@@ -21,7 +22,21 @@ class Modal extends Component {
     });
   };
 
-  componentWillReceiveProps(nextProps){
+  memberChange = memberIdArr => {
+   console.log(memberIdArr)
+     this.setState({
+      memberIdArr 
+     });
+  };
+
+  labelChange = labelArr => {
+    console.log(labelArr)
+      this.setState({
+        labelArr 
+      });
+   };
+
+  componentWillReceiveProps(nextProps) {
     console.log(nextProps);
     this.setState({
       id: nextProps.task.id,
@@ -31,7 +46,7 @@ class Modal extends Component {
       status: nextProps.task.status,
       labelArr: nextProps.task.labelArr,
       memberIdArr: nextProps.task.memberIdArr
-    })
+    });
   }
 
   render() {
@@ -54,11 +69,19 @@ class Modal extends Component {
             <div className="modal-body">
               <div className="form-group">
                 <label htmlFor="taskName">Tên công việc:</label>
-                <input name="name" value={this.state.name} onChange={this.handleChange} type="text" className="form-control" id="taskName" />
+                <input
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                  type="text"
+                  className="form-control"
+                  id="taskName"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="description">Mô tả:</label>
-                <textarea onChange={this.handleChange}
+                <textarea
+                  onChange={this.handleChange}
                   className="form-control"
                   value={this.state.desc}
                   rows={2}
@@ -68,7 +91,13 @@ class Modal extends Component {
               </div>
               <div className="form-group">
                 <label htmlFor="priority">Độ ưu tiên:</label>
-                <select name="priority" onChange={this.handleChange} className="form-control" id="priority">
+                <select
+                  value={this.state.priority}
+                  name="priority"
+                  onChange={this.handleChange}
+                  className="form-control"
+                  id="priority"
+                >
                   <option value={1}>Thấp</option>
                   <option value={2}>Trung bình</option>
                   <option value={3}>Cao</option>
@@ -76,90 +105,41 @@ class Modal extends Component {
               </div>
               <label htmlFor="">Người thực hiện:</label>
               <br />
-              <div className="form-check-inline">
-                <label className="form-check-label">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    defaultValue
-                  />
-                  Nghĩa Văn
-                </label>
-              </div>
-              <div className="form-check-inline">
-                <label className="form-check-label">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    defaultValue
-                  />
-                  Minh Tuấn
-                </label>
-              </div>
-              <div className="form-check-inline">
-                <label className="form-check-label">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    defaultValue
-                  />
-                  Trung Hiếu
-                </label>
-              </div>
-              <div className="form-check-inline">
-                <label className="form-check-label">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    defaultValue
-                  />
-                  Tấn Khải
-                </label>
-              </div>
+
+              <CheckboxGroup
+                name="memberIdArr"
+                value={this.state.memberIdArr}
+                onChange={this.memberChange}
+              >
+                <Checkbox value="user_1" />
+                Nghĩa Văn<br/>
+                <Checkbox value="user_2" />
+                Minh Tuấn<br/>
+                <Checkbox value="user_3" />
+                Trung Hiếu<br/>
+                <Checkbox value="user_4" />
+                Tấn Khải<br/>
+              </CheckboxGroup>
+
               <br />
               <br />
               <label htmlFor="">Nhãn:</label>
               <br />
-              <div className="form-check-inline">
-                <label className="form-check-label">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    defaultValue
-                  />
-                  Frontend
-                </label>
-              </div>
-              <div className="form-check-inline">
-                <label className="form-check-label">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    defaultValue
-                  />
-                  Backend
-                </label>
-              </div>
-              <div className="form-check-inline">
-                <label className="form-check-label">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    defaultValue
-                  />
-                  API
-                </label>
-              </div>
-              <div className="form-check-inline">
-                <label className="form-check-label">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    defaultValue
-                  />
-                  Issue
-                </label>
-              </div>
+              <CheckboxGroup
+                name="labelArr"
+                value={this.state.labelArr}
+                onChange={this.labelChange}
+              >
+                <Checkbox value="Frontend" />
+                Frontend<br/>
+                <Checkbox value="Backend" />
+                Backend<br/>
+                <Checkbox value="API" />
+                API<br/>
+                <Checkbox value="Issue" />
+                Issue<br/>
+              </CheckboxGroup>
+
             </div>
             {/* Modal footer */}
             <div className="modal-footer">
