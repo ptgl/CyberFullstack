@@ -11,24 +11,49 @@ class Homepage extends Component {
   constructor(props){
     super(props);
     this.state = {
-      action: "add"
+      action: "add",
+      taskList: listOfTask.list || []
     }
   }
 
-  addNewTask = (action)=>{
+  generateData = ()=>{
+    localStorage.setItem("tasks",JSON.stringify(listOfTask.list));
+  }
+
+  openModal = (action, task)=>{
     this.setState({
-      task: new Task(),
       action,
+      task,
+      taskList: listOfTask.list
     })
   }
 
-  editTask = (data) => {
+  addNewTask = (data)=>{
     console.log(data);
+    listOfTask.addNewTask(data);
     this.setState({
-      task: data,
-      action: "edit"
+      taskList: listOfTask.list
     })
-  };
+    localStorage.setItem("tasks", JSON.stringify(listOfTask.list));
+  }
+
+  componentWillMount = ()=>{
+    console.log("will mount")
+    let taskJson = JSON.parse(localStorage.getItem("tasks")) || listOfTask.list;
+    listOfTask.list = taskJson;
+    this.setState({
+      taskList: taskJson
+    })
+  }
+
+  editTask = (data)=>{
+    console.log(data);
+    listOfTask.editTask(data);
+    this.setState({
+      taskList: listOfTask.list
+    })
+    localStorage.setItem("tasks", JSON.stringify(listOfTask.list));
+  }
 
   render() {
     return (
@@ -37,13 +62,13 @@ class Homepage extends Component {
         <div className="container-fluid">
           <div className="row">
             {/* PANEL */}
-            <Control addNewTask={this.addNewTask}/>
+            <Control openModal={this.openModal} generateData={this.generateData}/>
             {/* DISPLAY */}
-            <TaskItems tasks={listOfTask.list}  editTask={this.editTask}/>
+            <TaskItems tasks={this.state.taskList}  openModal={this.openModal}/>
           </div>
         </div>
         {/* The Modal */}
-        <Modal task={this.state.task} action={this.state.action}/>
+        <Modal addNewTask={this.addNewTask} editTask={this.editTask} task={this.state.task} action={this.state.action}/>
       </div>
     );
   }

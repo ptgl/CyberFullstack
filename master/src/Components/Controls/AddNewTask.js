@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 
 class AddNewTask extends Component {
-  handleAddNewTask= (action)=>{
-    this.props.addNewTask(action);
-  }
+ 
 
   render() {
     return (
@@ -12,7 +10,7 @@ class AddNewTask extends Component {
         className="btn my-3 btn--newTask"
         data-toggle="modal"
         data-target="#modalTask"
-        onClick={()=>this.handleAddNewTask('add')}
+        onClick={()=>this.props.openModal('add',{})}
       >
         <i className="fa fa-pencil-square-o" />
         Tạo Task mới

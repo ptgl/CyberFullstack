@@ -18,9 +18,9 @@ class Controls extends Component {
           </h3>
         </div>
 
-        <AddNewTask addNewTask={this.props.addNewTask} />
+        <AddNewTask openModal={this.props.openModal} />
 
-        <InitializeTask />
+        <InitializeTask generateData={this.props.generateData}/>
 
         <div className="px-3">
           <FilterProgress />

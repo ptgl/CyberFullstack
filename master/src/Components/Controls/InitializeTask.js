@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 
 class InitializeTask extends Component {
+
+  initializeTask = ()=>{
+    this.props.generateData()
+  }
+
     render() {
         return (
             <button
         type="button"
         className="btn my-3 btn--initializeTask"
-        data-toggle="modal"
-        data-target="#modalTask"
+        
+        onClick={this.props.generateData}
       >
         <i className="fa fa-pencil-square-o" />
-        Initialize Task
+        Get data from local storage
       </button>
         );
     }

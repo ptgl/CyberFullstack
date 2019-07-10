@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Item extends Component {
 
   handleEditing = (task)=>{
-    this.props.editTask(task);
+    this.props.openModal("edit", task);
   }
 
   render() {
@@ -49,14 +49,14 @@ class Item extends Component {
         </td>
         <td
           className={`${
-            priority === 1
+            priority === '1'
               ? "text-info"
-              : priority === 2
+              : priority === '2'
               ? "text-success"
               : "text-danger"
           } font-weight-bold text-center`}
         >
-          {priority === 1 ? "Thấp" : priority === 2 ? "Trung Bình" : "Cao"}
+          {priority === '1' ? "Thấp" : priority === '2' ? "Trung Bình" : "Cao"}
         </td>
         <td className="text-center">{assignedTo}</td>
         <td className="text-center">

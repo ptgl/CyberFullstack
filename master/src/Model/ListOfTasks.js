@@ -8,6 +8,11 @@ export default class ListOfTasks{
         this.list = [...this.list, task]
     }
 
+    editTask = task => {
+        let idx = this.list.findIndex(o=>o.id === task.id);
+        this.list[idx] = task;
+    }
+
     findTask = (id)=>{
         return this.list.find(o=>o.id === id);
     }
