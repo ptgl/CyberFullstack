@@ -8,7 +8,7 @@ const TaskData = [
         id: randomId(5, "aA0"),
         name: "linh",
         desc: "implement UI",
-        priority: 1,
+        priority: 'low',
         status: 1,
         labelArr: ["Frontend"],
         memberIdArr: ["user_2"]
@@ -17,7 +17,7 @@ const TaskData = [
         id: randomId(5, "aA0"),
         name: "phuong",
         desc: "implement Test",
-        priority: 2,
+        priority: 'high',
         status: 2,
         labelArr: ["Frontend","API"],
         memberIdArr: ["user_1", "user_4"]
@@ -26,7 +26,7 @@ const TaskData = [
         id: randomId(5, "aA0"),
         name: "hiep",
         desc: "implement Backend code",
-        priority: 3,
+        priority: 'average',
         status: 1,
         labelArr: ["Backend","Issue"],
         memberIdArr: ["user_3"]

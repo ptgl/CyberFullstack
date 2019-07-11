@@ -4,9 +4,56 @@ import Item from "./TaskItems/Item";
 import THead from "./TaskItems/THead";
 
 class TaskItems extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchKey: ""
+    };
+  }
 
-    let items = this.props.tasks.map((o, idx) => <Item key={idx} data={o} openModal={this.props.openModal}/>);
+  handleSearch = e => {
+    this.setState({
+      searchKey: e.target.value
+    });
+  };
+
+  render() {
+    let { sortType, tasks, filterType, filterData} = this.props;
+
+    //search
+    tasks = tasks.filter(o=>o.name.match(this.state.searchKey));
+    
+    //sort
+    tasks.sort((a, b) => {
+      let x = a.name.toLowerCase();
+      let y = b.name.toLowerCase();
+
+      let lt = sortType === "asc" ? -1 : 1;
+      let gt = sortType === "asc" ? 1 : -1;
+
+      return x < y ? lt : x > y ? gt : 0;
+    });
+
+    //filter
+    switch(filterType){
+      case 'priority':
+        tasks = filterData.toLowerCase() === 'all' ? tasks : tasks.filter(o=>o.priority === filterData);
+        break;
+      case 'label':
+          tasks = filterData.toLowerCase() === 'all' ? tasks : tasks.filter(o=>o.labelArr.includes(filterData));
+        break;
+      default:
+    }
+
+    //show items
+    let items = tasks.map((o, idx) => (
+      <Item
+        key={idx}
+        data={o}
+        deleteTask={this.props.deleteTask}
+        openModal={this.props.openModal}
+      />
+    ));
 
     return (
       <div className="col-md-9 px-0">
@@ -21,8 +68,10 @@ class TaskItems extends Component {
               <div className="form-group text-left my-0">
                 <input
                   type="text"
+                  name="search"
                   className="form-control"
                   placeholder="Tìm kiếm công việc"
+                  onChange={this.handleSearch}
                 />
               </div>
             </div>
@@ -30,7 +79,7 @@ class TaskItems extends Component {
         </div>
         <div className="px-3">
           <table className="table table-hover">
-            <THead/>
+            <THead />
             <tbody>
               {/* <Item/>
               <Item/> */}

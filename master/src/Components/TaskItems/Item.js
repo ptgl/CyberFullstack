@@ -43,20 +43,20 @@ class Item extends Component {
     return (
       <tr>
         <td className="text-center">{id}</td>
-        <td className="text-center">{desc}</td>
+        <td className="text-center">{name}</td>
         <td className="text-center">
           {labels}
         </td>
         <td
           className={`${
-            priority === '1'
+            priority === 'low'
               ? "text-info"
-              : priority === '2'
-              ? "text-success"
-              : "text-danger"
+              : priority === 'high'
+              ? "text-danger"
+              : "text-success"
           } font-weight-bold text-center`}
         >
-          {priority === '1' ? "Thấp" : priority === '2' ? "Trung Bình" : "Cao"}
+          {priority === 'low' ? "Thấp" : priority === 'high' ? "Cao" : "Trung Bình"}
         </td>
         <td className="text-center">{assignedTo}</td>
         <td className="text-center">
@@ -67,7 +67,7 @@ class Item extends Component {
           <button type="button" className="btn btn-outline-success">
             Xong
           </button>
-          <button type="button" className="btn btn-outline-danger">
+          <button type="button" className="btn btn-outline-danger" onClick={()=>this.props.deleteTask(this.props.data)}>
             Xóa
           </button>
         </td>

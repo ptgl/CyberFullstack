@@ -9,8 +9,13 @@ export default class ListOfTasks{
     }
 
     editTask = task => {
-        let idx = this.list.findIndex(o=>o.id === task.id);
+        let idx = this.findTaskIndex(task.id);
         this.list[idx] = task;
+    }
+
+    deleteTask = task => {
+        let idx = this.findTaskIndex(task.id);
+        this.list.splice(idx, 1);
     }
 
     findTask = (id)=>{

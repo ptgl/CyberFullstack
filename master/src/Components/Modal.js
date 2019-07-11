@@ -124,9 +124,9 @@ class Modal extends Component {
                     className="form-control"
                     id="priority"
                   >
-                    <option value={1}>Thấp</option>
-                    <option value={2}>Trung bình</option>
-                    <option value={3}>Cao</option>
+                    <option value="low">Thấp</option>
+                    <option value="average">Trung bình</option>
+                    <option value="high">Cao</option>
                   </select>
                 </div>
                 <label htmlFor="">Người thực hiện:</label>

@@ -12,8 +12,22 @@ class Homepage extends Component {
     super(props);
     this.state = {
       action: "add",
-      taskList: listOfTask.list || []
+      task: null,
+      taskList: listOfTask.list || [],
+      sortType: 'asc',
+      searchKey: '',
+      filterType: '',
+      filterData: '' 
     }
+  }
+
+  componentWillMount = ()=>{
+    console.log("will mount")
+    let taskJson = JSON.parse(localStorage.getItem("tasks")) || listOfTask.list;
+    listOfTask.list = taskJson;
+    this.setState({
+      taskList: taskJson
+    })
   }
 
   generateData = ()=>{
@@ -37,15 +51,6 @@ class Homepage extends Component {
     localStorage.setItem("tasks", JSON.stringify(listOfTask.list));
   }
 
-  componentWillMount = ()=>{
-    console.log("will mount")
-    let taskJson = JSON.parse(localStorage.getItem("tasks")) || listOfTask.list;
-    listOfTask.list = taskJson;
-    this.setState({
-      taskList: taskJson
-    })
-  }
-
   editTask = (data)=>{
     console.log(data);
     listOfTask.editTask(data);
@@ -55,16 +60,46 @@ class Homepage extends Component {
     localStorage.setItem("tasks", JSON.stringify(listOfTask.list));
   }
 
+  deleteTask = (data)=>{
+    console.log(data);
+    listOfTask.deleteTask(data);
+    this.setState({
+      taskList: listOfTask.list
+    })
+    localStorage.setItem("tasks", JSON.stringify(listOfTask.list));
+  }
+
+  changeSortType = type=>{
+    this.setState({
+      sortType: type
+    })
+  }
+
+  changeSearchKey = key =>{
+    this.setState({
+      searchKey: key
+    })
+  }
+
+  filter = (filterType, filterData)=>{
+    //console.log(filterData,filterType)
+    this.setState({
+      filterType,
+      filterData
+    })
+  }
+
   render() {
+    let {filterType, filterData} = this.state;
     return (
       <div>
         <h1 className="text-center my-2">QUẢN LÝ CÔNG VIỆC</h1>
         <div className="container-fluid">
           <div className="row">
             {/* PANEL */}
-            <Control openModal={this.openModal} generateData={this.generateData}/>
+            <Control filter={this.filter}  openModal={this.openModal} generateData={this.generateData} changeSortType={this.changeSortType}/>
             {/* DISPLAY */}
-            <TaskItems tasks={this.state.taskList}  openModal={this.openModal}/>
+            <TaskItems filterType={filterType} filterData={filterData}  sortType={this.state.sortType} tasks={this.state.taskList} deleteTask={this.deleteTask} openModal={this.openModal}/>
           </div>
         </div>
         {/* The Modal */}

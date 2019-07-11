@@ -25,11 +25,11 @@ class Controls extends Component {
         <div className="px-3">
           <FilterProgress />
 
-          <FilterLabel />
+          <FilterLabel filter={this.props.filter} />
 
-          <FilterPriority />
+          <FilterPriority filter={this.props.filter} />
 
-          <Sort />
+          <Sort changeSortType={this.props.changeSortType}/>
         </div>
       </div>
     );
