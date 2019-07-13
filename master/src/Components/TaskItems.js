@@ -18,11 +18,11 @@ class TaskItems extends Component {
   };
 
   render() {
-    let { sortType, tasks, filterType, filterData} = this.props;
+    let { sortType, tasks, filterType, filterData } = this.props;
 
     //search
-    tasks = tasks.filter(o=>o.name.match(this.state.searchKey));
-    
+    tasks = tasks.filter(o => o.name.toLowerCase().match(this.state.searchKey.toLowerCase()));
+
     //sort
     tasks.sort((a, b) => {
       let x = a.name.toLowerCase();
@@ -35,16 +35,27 @@ class TaskItems extends Component {
     });
 
     //filter
-    switch(filterType){
-      case 'priority':
-        tasks = filterData.toLowerCase() === 'all' ? tasks : tasks.filter(o=>o.priority === filterData);
+    switch (filterType) {
+      case "priority":
+        tasks =
+          filterData.toLowerCase() === "all"
+            ? tasks
+            : tasks.filter(o => o.priority === filterData);
         break;
-      case 'label':
-          tasks = filterData.toLowerCase() === 'all' ? tasks : tasks.filter(o=>o.labelArr.includes(filterData));
+      case "label":
+        tasks =
+          filterData.toLowerCase() === "all"
+            ? tasks
+            : tasks.filter(o => o.labelArr.includes(filterData));
+        break;
+      case "progress":
+        tasks =
+          +filterData === -1
+            ? tasks
+            : tasks.filter(o => o.status === filterData);
         break;
       default:
     }
-
     //show items
     let items = tasks.map((o, idx) => (
       <Item
@@ -52,6 +63,7 @@ class TaskItems extends Component {
         data={o}
         deleteTask={this.props.deleteTask}
         openModal={this.props.openModal}
+        changeProgressStatus={this.props.changeProgressStatus}
       />
     ));
 

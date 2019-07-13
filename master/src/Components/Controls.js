@@ -23,7 +23,7 @@ class Controls extends Component {
         <InitializeTask generateData={this.props.generateData}/>
 
         <div className="px-3">
-          <FilterProgress />
+          <FilterProgress filter={this.props.filter} />
 
           <FilterLabel filter={this.props.filter} />
 

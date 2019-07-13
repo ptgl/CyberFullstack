@@ -88,6 +88,18 @@ class Homepage extends Component {
       filterData
     })
   }
+  
+  changeProgressStatus = (id, status)=>{
+    console.log(id, status);
+    debugger
+    listOfTask.list = JSON.parse(localStorage.getItem("tasks")) ;
+    let idx = listOfTask.findTaskIndex(id);
+    listOfTask.list[idx].status = +status;
+    localStorage.setItem("tasks", JSON.stringify(listOfTask.list));
+    this.setState({
+      taskList: listOfTask.list
+    })
+  }
 
   render() {
     let {filterType, filterData} = this.state;
@@ -99,7 +111,7 @@ class Homepage extends Component {
             {/* PANEL */}
             <Control filter={this.filter}  openModal={this.openModal} generateData={this.generateData} changeSortType={this.changeSortType}/>
             {/* DISPLAY */}
-            <TaskItems filterType={filterType} filterData={filterData}  sortType={this.state.sortType} tasks={this.state.taskList} deleteTask={this.deleteTask} openModal={this.openModal}/>
+            <TaskItems changeProgressStatus={this.changeProgressStatus} filterType={filterType} filterData={filterData}  sortType={this.state.sortType} tasks={this.state.taskList} deleteTask={this.deleteTask} openModal={this.openModal}/>
           </div>
         </div>
         {/* The Modal */}
