@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Checkbox, CheckboxGroup } from "react-checkbox-group";
 import Task from "../Model/Task";
 
+import { connect } from "react-redux";
+import isAddNewTask from "../Reducer/isAddNewTask";
+
 class Modal extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +52,7 @@ class Modal extends Component {
         labelArr: nextProps.task.labelArr,
         memberIdArr: nextProps.task.memberIdArr
       });
-    }else{
+    } else {
       this.setState({
         id: "",
         name: "",
@@ -64,18 +67,26 @@ class Modal extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    let newTask = new Task(this.state.id, this.state.name, this.state.desc, this.state.priority, this.state.status, this.state.labelArr, this.state.memberIdArr)
+    let newTask = new Task(
+      this.state.id,
+      this.state.name,
+      this.state.desc,
+      this.state.priority,
+      this.state.status,
+      this.state.labelArr,
+      this.state.memberIdArr
+    );
     if (this.props.action === "add") {
       //console.log(newTask)
-      this.props.addNewTask(newTask)
-    }else{
+      this.props.addNewTask(newTask);
+    } else {
       //console.log(newTask)
-      this.props.editTask(newTask)
+      this.props.editTask(newTask);
     }
   };
 
   render() {
-    let { task, action } = this.props;
+    let { task, action, isAdd } = this.props;
 
     return (
       <div className="modal fade" id="modalTask">
@@ -84,15 +95,15 @@ class Modal extends Component {
             {/* Modal Header */}
             <div className="modal-header">
               <h4 className="modal-title">
-                {action === "add" ? "Add a new task" : "Edit Task"}
+                {isAdd  ? "Add a new task" : "Edit Task"}
               </h4>
               <button type="button" className="close" data-dismiss="modal">
                 ×
               </button>
             </div>
             {/* Modal body */}
-              <div className="modal-body">
-            <form role="form" onSubmit={this.onSubmit}>
+            <div className="modal-body">
+              <form role="form" onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <label htmlFor="taskName">Tên công việc:</label>
                   <input
@@ -173,35 +184,24 @@ class Modal extends Component {
                   Issue
                   <br />
                 </CheckboxGroup>
-                
-              {/* Modal footer */}
-              <div className="modal-footer">
-                {action === "add" ? (
-                  <button
-                    type="submit"
-                    className="btn btn-success"
-                  >
-                    Add
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className="btn btn-success"
-                  >
-                    Edit
-                  </button>
-                )}
 
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </form>
-              </div>
+                {/* Modal footer */}
+                <div className="modal-footer">
+                    <button type="submit" className="btn btn-success">
+                      {isAdd ? "Add" : "Edit"}
+                    </button>
+                  
+
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -209,4 +209,8 @@ class Modal extends Component {
   }
 }
 
-export default Modal;
+const mapStateToProps = state => {
+  return { isAdd: state.isAddNewTask };
+};
+
+export default connect(mapStateToProps)(Modal);

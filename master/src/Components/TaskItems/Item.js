@@ -1,36 +1,34 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as action from "../../Action/actions";
 
 class Item extends Component {
   constructor(props) {
-    console.log("constructor",props.data.status)
+    console.log("constructor", props.data.status);
     super(props);
     this.state = {
       selectedStatus: props.data.status
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    this.state = {
-      selectedStatus: nextProps.data.status
-    };
-  
+  static getDerivedStateFromProps(props, state) {
+    console.log("next ",props, state );
   }
 
-  handleChangeStatus = e =>{
+  handleChangeStatus = e => {
     //console.log(e.target.value);
     this.props.changeProgressStatus(this.props.data.id, e.target.value);
     this.setState({
       selectedStatus: e.target.value
-    })
-  }
+    });
+  };
 
   handleEditing = task => {
     this.props.openModal("edit", task);
   };
 
   getProgressIcon = number => {
-    debugger
+    debugger;
     switch (+number) {
       case 1:
         return "fa-hourglass-start";
@@ -107,7 +105,7 @@ class Item extends Component {
             className="btn btn-outline-primary"
             data-toggle="modal"
             data-target="#modalTask"
-            onClick={() => this.handleEditing(this.props.data)}
+            onClick={this.props.openModal}
           >
             Sửa
           </button>
@@ -120,8 +118,17 @@ class Item extends Component {
             Xóa
           </button>
 
-          <div className="form-group" style={{width:"170px", margin:"0 auto"}}>
-            <select className="form-control" value={this.state.selectedStatus} name="status" onChange={this.handleChangeStatus} id="status">
+          <div
+            className="form-group"
+            style={{ width: "170px", margin: "0 auto" }}
+          >
+            <select
+              className="form-control"
+              value={this.state.selectedStatus}
+              name="status"
+              onChange={this.handleChangeStatus}
+              id="status"
+            >
               <option value={-1}>Chọn tình trạng</option>
               <option value={1}>Bắt đầu</option>
               <option value={2}>Tạm ngưng</option>
@@ -131,11 +138,26 @@ class Item extends Component {
           </div>
         </td>
         <td className="text-center">
-          <i className={`fa ${this.getProgressIcon(this.state.selectedStatus)}  mr-2`} />
+          <i
+            className={`fa ${this.getProgressIcon(
+              this.state.selectedStatus
+            )}  mr-2`}
+          />
         </td>
       </tr>
     );
   }
 }
 
-export default Item;
+const mapDispatchToProps = dispatch => {
+  return {
+    openModal: () => {
+      dispatch(action.openEditModal());
+    }
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Item);

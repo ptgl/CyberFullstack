@@ -11,7 +11,6 @@ class Homepage extends Component {
   constructor(props){
     super(props);
     this.state = {
-      action: "add",
       task: null,
       taskList: listOfTask.list || [],
       sortType: 'asc',
@@ -34,13 +33,7 @@ class Homepage extends Component {
     localStorage.setItem("tasks",JSON.stringify(listOfTask.list));
   }
 
-  openModal = (action, task)=>{
-    this.setState({
-      action,
-      task,
-      taskList: listOfTask.list
-    })
-  }
+  
 
   addNewTask = (data)=>{
     console.log(data);
@@ -109,7 +102,7 @@ class Homepage extends Component {
         <div className="container-fluid">
           <div className="row">
             {/* PANEL */}
-            <Control filter={this.filter}  openModal={this.openModal} generateData={this.generateData} changeSortType={this.changeSortType}/>
+            <Control filter={this.filter}   generateData={this.generateData} changeSortType={this.changeSortType}/>
             {/* DISPLAY */}
             <TaskItems changeProgressStatus={this.changeProgressStatus} filterType={filterType} filterData={filterData}  sortType={this.state.sortType} tasks={this.state.taskList} deleteTask={this.deleteTask} openModal={this.openModal}/>
           </div>

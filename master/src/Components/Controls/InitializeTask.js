@@ -15,7 +15,7 @@ class InitializeTask extends Component {
         onClick={this.props.generateData}
       >
         <i className="fa fa-pencil-square-o" />
-        Get data from local storage
+        Initialize task
       </button>
         );
     }
