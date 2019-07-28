@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 
-import Item from "./TaskItems/Item";
-import THead from "./TaskItems/THead";
+import Item from "./Products/Item";
+import Cart from "./Products/Cart";
+import Account from "./Products/Account";
 
-class TaskItems extends Component {
+class ProductItems extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +22,9 @@ class TaskItems extends Component {
     let { sortType, tasks, filterType, filterData } = this.props;
 
     //search
-    tasks = tasks.filter(o => o.name.toLowerCase().match(this.state.searchKey.toLowerCase()));
+    tasks = tasks.filter(o =>
+      o.name.toLowerCase().match(this.state.searchKey.toLowerCase())
+    );
 
     //sort
     tasks.sort((a, b) => {
@@ -71,37 +74,32 @@ class TaskItems extends Component {
       <div className="col-md-9 px-0">
         <div className="container-fluid px-0">
           <div className="row header header--right d-flex align-items-center mx-0">
-            <div className="col-md-6">
+            {/* <div className="col-md-6">
               <div className=" d-flex justify-content-between">
                 <h3 className="text-left ml-2 ">Danh sách công việc</h3>
               </div>
-            </div>
+            </div> */}
             <div className="col-md-6">
               <div className="form-group text-left my-0">
                 <input
                   type="text"
                   name="search"
                   className="form-control"
-                  placeholder="Tìm kiếm công việc"
+                  placeholder="Search Products"
                   onChange={this.handleSearch}
                 />
               </div>
             </div>
+            <div className="col-md-6">
+              <Cart />
+              <Account/>
+            </div>
           </div>
         </div>
-        <div className="px-3">
-          <table className="table table-hover">
-            <THead />
-            <tbody>
-              {/* <Item/>
-              <Item/> */}
-              {items}
-            </tbody>
-          </table>
-        </div>
+        <div className="row offset-1">{items}</div>
       </div>
     );
   }
 }
 
-export default TaskItems;
+export default ProductItems;

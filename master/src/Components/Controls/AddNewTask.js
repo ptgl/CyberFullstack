@@ -14,7 +14,7 @@ class AddNewTask extends Component {
         onClick={this.props.openModal}
       >
         <i className="fa fa-pencil-square-o" />
-        Tạo Task mới
+        Add A Product
       </button>
     );
   }

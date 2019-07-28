@@ -1,4 +1,4 @@
-export default class ListOfTasks{
+export default class ListOfProducts{
     constructor(){
         this.list = [];
     }

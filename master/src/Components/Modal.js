@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Checkbox, CheckboxGroup } from "react-checkbox-group";
-import Task from "../Model/Task";
+import Task from "../Model/Product";
 
 import { connect } from "react-redux";
 import isAddNewTask from "../Reducer/isAddNewTask";

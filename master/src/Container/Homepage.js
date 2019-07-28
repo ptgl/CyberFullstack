@@ -2,9 +2,9 @@ import React, { Component } from "react";
 
 import Control from "../Components/Controls";
 import Modal from "../Components/Modal";
-import TaskItems from "../Components/TaskItems";
-import listOfTask from "../Model/getData";
-import Task from "../Model/Task";
+import ProductItems from "../Components/ProductItems";
+import listOfProducts from "../Model/getData";
+import Task from "../Model/Product";
 
 class Homepage extends Component {
 
@@ -12,7 +12,7 @@ class Homepage extends Component {
     super(props);
     this.state = {
       task: null,
-      taskList: listOfTask.list || [],
+      taskList: listOfProducts.list || [],
       sortType: 'asc',
       searchKey: '',
       filterType: '',
@@ -22,44 +22,44 @@ class Homepage extends Component {
 
   componentWillMount = ()=>{
     console.log("will mount")
-    let taskJson = JSON.parse(localStorage.getItem("tasks")) || listOfTask.list;
-    listOfTask.list = taskJson;
+    let taskJson = JSON.parse(localStorage.getItem("tasks")) || listOfProducts.list;
+    listOfProducts.list = taskJson;
     this.setState({
       taskList: taskJson
     })
   }
 
   generateData = ()=>{
-    localStorage.setItem("tasks",JSON.stringify(listOfTask.list));
+    localStorage.setItem("tasks",JSON.stringify(listOfProducts.list));
   }
 
   
 
   addNewTask = (data)=>{
     console.log(data);
-    listOfTask.addNewTask(data);
+    listOfProducts.addNewTask(data);
     this.setState({
-      taskList: listOfTask.list
+      taskList: listOfProducts.list
     })
-    localStorage.setItem("tasks", JSON.stringify(listOfTask.list));
+    localStorage.setItem("tasks", JSON.stringify(listOfProducts.list));
   }
 
   editTask = (data)=>{
     console.log(data);
-    listOfTask.editTask(data);
+    listOfProducts.editTask(data);
     this.setState({
-      taskList: listOfTask.list
+      taskList: listOfProducts.list
     })
-    localStorage.setItem("tasks", JSON.stringify(listOfTask.list));
+    localStorage.setItem("tasks", JSON.stringify(listOfProducts.list));
   }
 
   deleteTask = (data)=>{
     console.log(data);
-    listOfTask.deleteTask(data);
+    listOfProducts.deleteTask(data);
     this.setState({
-      taskList: listOfTask.list
+      taskList: listOfProducts.list
     })
-    localStorage.setItem("tasks", JSON.stringify(listOfTask.list));
+    localStorage.setItem("tasks", JSON.stringify(listOfProducts.list));
   }
 
   changeSortType = type=>{
@@ -85,12 +85,12 @@ class Homepage extends Component {
   changeProgressStatus = (id, status)=>{
     console.log(id, status);
     debugger
-    listOfTask.list = JSON.parse(localStorage.getItem("tasks")) ;
-    let idx = listOfTask.findTaskIndex(id);
-    listOfTask.list[idx].status = +status;
-    localStorage.setItem("tasks", JSON.stringify(listOfTask.list));
+    listOfProducts.list = JSON.parse(localStorage.getItem("tasks")) ;
+    let idx = listOfProducts.findTaskIndex(id);
+    listOfProducts.list[idx].status = +status;
+    localStorage.setItem("tasks", JSON.stringify(listOfProducts.list));
     this.setState({
-      taskList: listOfTask.list
+      taskList: listOfProducts.list
     })
   }
 
@@ -98,13 +98,12 @@ class Homepage extends Component {
     let {filterType, filterData} = this.state;
     return (
       <div>
-        <h1 className="text-center my-2">QUẢN LÝ CÔNG VIỆC</h1>
         <div className="container-fluid">
           <div className="row">
             {/* PANEL */}
             <Control filter={this.filter}   generateData={this.generateData} changeSortType={this.changeSortType}/>
             {/* DISPLAY */}
-            <TaskItems changeProgressStatus={this.changeProgressStatus} filterType={filterType} filterData={filterData}  sortType={this.state.sortType} tasks={this.state.taskList} deleteTask={this.deleteTask} openModal={this.openModal}/>
+            <ProductItems changeProgressStatus={this.changeProgressStatus} filterType={filterType} filterData={filterData}  sortType={this.state.sortType} tasks={this.state.taskList} deleteTask={this.deleteTask} openModal={this.openModal}/>
           </div>
         </div>
         {/* The Modal */}

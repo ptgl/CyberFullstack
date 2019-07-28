@@ -10,10 +10,10 @@ class Sort extends Component {
   render() {
     return (
       <div className="form-group text-left">
-        <label>Sắp xếp theo công việc</label>
+        <label>Order by</label>
         <select name="sort" className="form-control" onChange={this.handleChange}>
-          <option value="asc">Từ A đến Z</option>
-          <option value="desc">Từ Z đến A</option>
+          <option value="asc">From A to Z</option>
+          <option value="desc">From Z to A</option>
         </select>
       </div>
     );

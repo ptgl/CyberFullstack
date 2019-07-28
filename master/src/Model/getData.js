@@ -1,21 +1,21 @@
-import ListOfTasks from "./ListOfTasks";
-import TaskData from "./TaskData";
-import Task from "./Task";
+import ListOfProducts from "./ListOfProducts";
+import ProductData from "./ProductData";
+import Product from "./Product";
 
-let listOfTasks = new ListOfTasks();
+let listOfProducts = new ListOfProducts();
 
-for (let task of TaskData) {
-  listOfTasks.addNewTask(
-    new Task(
-      task.id,
-      task.name,
-      task.desc,
-      task.priority,
-      task.status,
-      task.labelArr,
-      task.memberIdArr
+for (let item of ProductData) {
+  listOfProducts.addNewTask(
+    new Product(
+      item.id,
+      item.desc,
+      item.name,
+      item.rate,
+      item.price,
+      item.sizes,
+      item.img
     )
   );
 }
 
-export default listOfTasks;
+export default listOfProducts;
