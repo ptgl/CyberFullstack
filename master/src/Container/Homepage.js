@@ -37,7 +37,7 @@ class Homepage extends Component {
 
   addNewTask = (data)=>{
     console.log(data);
-    listOfProducts.addNewTask(data);
+    listOfProducts.addNewProduct(data);
     this.setState({
       taskList: listOfProducts.list
     })

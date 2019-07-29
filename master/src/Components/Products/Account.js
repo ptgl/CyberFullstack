@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 class Account extends Component {
     render() {
         return (
-            <div class="float-right">
+            <div className="float-right">
                 <a
-                  class="nav-link dropdown-toggle text-white"
+                  className="nav-link dropdown-toggle text-white"
                   href="#"
                   id="navbarDropdownMenuLink"
                   data-toggle="dropdown"
@@ -15,10 +15,10 @@ class Account extends Component {
                   Hello Customer
                 </a>
                 <div
-                  class="dropdown-menu"
+                  className="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <a class="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#">
                     Log out
                   </a>
                   

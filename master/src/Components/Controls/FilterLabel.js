@@ -19,7 +19,7 @@ class FilterLabel extends Component {
     ));
     return (
       <div className="filter filter--label">
-        <h4 class="title">Sizes:</h4>
+        <h4 className="title">Sizes:</h4>
         {sizeLabel}
         {/* <div className="filters-available-size">
           <label>

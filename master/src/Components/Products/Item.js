@@ -30,7 +30,7 @@ class Item extends Component {
 
   render() {
     let { data } = this.props;
-    let imgSrc = data.img.startsWith("http") ? data.img : `./img/${data.img}`;
+    // let imgSrc = data.img.startsWith("http") ? data.img : `./img/${data.img}`;
     return (
       <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-lg-4 mt-5">
         <div className="container">

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Item from "./Products/Item";
 import Cart from "./Products/Cart";
 import Account from "./Products/Account";
+import {connect} from "react-redux";
 
 class ProductItems extends Component {
   constructor(props) {
@@ -19,8 +20,8 @@ class ProductItems extends Component {
   };
 
   render() {
-    let { sortType, tasks, filterType, filterData } = this.props;
-
+    let { sortType, tasks, filterType, filterData, productList } = this.props;
+debugger;
     //search
     tasks = tasks.filter(o =>
       o.name.toLowerCase().match(this.state.searchKey.toLowerCase())
@@ -60,7 +61,7 @@ class ProductItems extends Component {
       default:
     }
     //show items
-    let items = tasks.map((o, idx) => (
+    let items = productList.map((o, idx) => (
       <Item
         key={idx}
         data={o}
@@ -102,4 +103,12 @@ class ProductItems extends Component {
   }
 }
 
-export default ProductItems;
+
+const mapStateToProps = (state) =>{
+  return {
+    productList: state.productList
+    
+  }
+}
+
+export default connect(mapStateToProps)(ProductItems);

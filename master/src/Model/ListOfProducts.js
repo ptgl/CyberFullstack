@@ -3,7 +3,7 @@ export default class ListOfProducts{
         this.list = [];
     }
 
-    addNewTask = (task)=>{
+    addNewProduct = (task)=>{
         console.log(task);
         this.list = [...this.list, task]
     }
@@ -13,8 +13,8 @@ export default class ListOfProducts{
         this.list[idx] = task;
     }
 
-    deleteTask = task => {
-        let idx = this.findTaskIndex(task.id);
+    deleteProduct = prod => {
+        let idx = this.findProductIndex(prod.id);
         this.list.splice(idx, 1);
     }
 
@@ -22,7 +22,7 @@ export default class ListOfProducts{
         return this.list.find(o=>o.id === id);
     }
 
-    findTaskIndex = (id)=>{
+    findProductIndex = (id)=>{
         return this.list.findIndex(o=>o.id === id);
     }
 }

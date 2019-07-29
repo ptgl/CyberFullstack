@@ -5,7 +5,7 @@ import Product from "./Product";
 let listOfProducts = new ListOfProducts();
 
 for (let item of ProductData) {
-  listOfProducts.addNewTask(
+  listOfProducts.addNewProduct(
     new Product(
       item.id,
       item.desc,

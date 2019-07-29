@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Checkbox, CheckboxGroup } from "react-checkbox-group";
 import Task from "../Model/Product";
-
+import * as actions from "../Action/actions"
 import { connect } from "react-redux";
 import isAddNewTask from "../Reducer/isAddNewTask";
 
@@ -12,10 +12,9 @@ class Modal extends Component {
       id: "",
       name: "",
       desc: "",
-      priority: "",
-      status: "",
-      labelArr: [],
-      memberIdArr: []
+      rating: "",
+      price: "",
+      sizes: [],
     };
   }
 
@@ -26,19 +25,14 @@ class Modal extends Component {
     });
   };
 
-  memberChange = memberIdArr => {
-    console.log(memberIdArr);
+  sizeChange = sizes => {
+    console.log(sizes);
     this.setState({
-      memberIdArr
+      sizes
     });
   };
 
-  labelChange = labelArr => {
-    console.log(labelArr);
-    this.setState({
-      labelArr
-    });
-  };
+  
 
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);
@@ -67,21 +61,21 @@ class Modal extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    let newTask = new Task(
+    let newProduct = new Task(
       this.state.id,
       this.state.name,
       this.state.desc,
-      this.state.priority,
-      this.state.status,
-      this.state.labelArr,
-      this.state.memberIdArr
+      this.state.rating,
+      +this.state.price,
+      this.state.size,
     );
-    if (this.props.action === "add") {
-      //console.log(newTask)
-      this.props.addNewTask(newTask);
+     console.log(this.props.isAdd);
+    if (this.props.isAdd === true) {
+      console.log("add-products")
+      this.props.addProduct(newProduct);
     } else {
       //console.log(newTask)
-      this.props.editTask(newTask);
+      // this.props.editTask(newTask);
     }
   };
 
@@ -95,7 +89,7 @@ class Modal extends Component {
             {/* Modal Header */}
             <div className="modal-header">
               <h4 className="modal-title">
-                {isAdd  ? "Add a new task" : "Edit Task"}
+                {isAdd  ? "Add a new product" : "Edit Product"}
               </h4>
               <button type="button" className="close" data-dismiss="modal">
                 ×
@@ -105,7 +99,7 @@ class Modal extends Component {
             <div className="modal-body">
               <form role="form" onSubmit={this.onSubmit}>
                 <div className="form-group">
-                  <label htmlFor="taskName">Tên công việc:</label>
+                  <label htmlFor="taskName">Product Name:</label>
                   <input
                     name="name"
                     value={this.state.name}
@@ -116,7 +110,18 @@ class Modal extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="description">Mô tả:</label>
+                  <label htmlFor="price">Price:</label>
+                  <input
+                    name="price"
+                    value={this.state.price}
+                    onChange={this.handleChange}
+                    type="text"
+                    className="form-control"
+                    id="price"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="description">Description:</label>
                   <textarea
                     onChange={this.handleChange}
                     className="form-control"
@@ -127,63 +132,46 @@ class Modal extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="priority">Độ ưu tiên:</label>
+                  <label htmlFor="rating">Rating:</label>
                   <select
-                    value={this.state.priority}
-                    name="priority"
+                    value={this.state.rating}
+                    name="rating"
                     onChange={this.handleChange}
                     className="form-control"
-                    id="priority"
+                    id="rating"
                   >
-                    <option value="low">Thấp</option>
-                    <option value="average">Trung bình</option>
-                    <option value="high">Cao</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                   </select>
                 </div>
-                <label htmlFor="">Người thực hiện:</label>
+                <label htmlFor="">Sizes:</label>
                 <br />
 
                 <CheckboxGroup
-                  name="memberIdArr"
-                  value={this.state.memberIdArr}
-                  onChange={this.memberChange}
+                  name="sizes"
+                  value={this.state.sizes}
+                  onChange={this.sizeChange}
                 >
-                  <Checkbox value="user_1" />
-                  Nghĩa Văn
+                  <Checkbox value="S" />
+                  S
                   <br />
-                  <Checkbox value="user_2" />
-                  Minh Tuấn
+                  <Checkbox value="M" />
+                  M
                   <br />
-                  <Checkbox value="user_3" />
-                  Trung Hiếu
+                  <Checkbox value="L" />
+                  L
                   <br />
-                  <Checkbox value="user_4" />
-                  Tấn Khải
+                  <Checkbox value="XL" />
+                  XL
                   <br />
                 </CheckboxGroup>
 
                 <br />
                 <br />
-                <label htmlFor="">Nhãn:</label>
-                <br />
-                <CheckboxGroup
-                  name="labelArr"
-                  value={this.state.labelArr}
-                  onChange={this.labelChange}
-                >
-                  <Checkbox value="Frontend" />
-                  Frontend
-                  <br />
-                  <Checkbox value="Backend" />
-                  Backend
-                  <br />
-                  <Checkbox value="API" />
-                  API
-                  <br />
-                  <Checkbox value="Issue" />
-                  Issue
-                  <br />
-                </CheckboxGroup>
+                
 
                 {/* Modal footer */}
                 <div className="modal-footer">
@@ -213,4 +201,13 @@ const mapStateToProps = state => {
   return { isAdd: state.isAddNewTask };
 };
 
-export default connect(mapStateToProps)(Modal);
+const mapDispatchToProps = dispatch => {
+  return {
+    addProduct: prod => {
+      dispatch(actions.addProduct(prod));
+    },
+    
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);
