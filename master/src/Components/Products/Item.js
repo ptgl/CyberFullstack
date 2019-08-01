@@ -55,11 +55,24 @@ class Item extends Component {
                 The Galaxy Note7 comes with a perfectly symmetrical design for
                 good reason
               </p>
-              <a href="#" className="btn btn-primary">
-                Detail
+              <a
+                href="#"
+                className="btn btn-info"
+                data-toggle="modal"
+                data-target="#modalTask"
+                onClick={()=>{this.props.openModal(); this.props.getEditingProduct(data)}}
+              >
+                Edit
+              </a>
+              <a
+                href="#"
+                className="btn btn-danger"
+                onClick={() => this.props.deleteProduct(data)}
+              >
+                Delete
               </a>
               <a href="#" className="btn btn-danger">
-                Cart
+                Add to Cart
               </a>
             </div>
           </div>
@@ -73,6 +86,12 @@ const mapDispatchToProps = dispatch => {
   return {
     openModal: () => {
       dispatch(action.openEditModal());
+    },
+    deleteProduct: id => {
+      dispatch(action.deleteProduct(id));
+    },
+    getEditingProduct: prod=>{
+      dispatch(action.getEditingProduct(prod))
     }
   };
 };

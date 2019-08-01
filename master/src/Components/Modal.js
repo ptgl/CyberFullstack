@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Checkbox, CheckboxGroup } from "react-checkbox-group";
-import Task from "../Model/Product";
-import * as actions from "../Action/actions"
+import Product from "../Model/Product";
+import * as actions from "../Action/actions";
 import { connect } from "react-redux";
 import isAddNewTask from "../Reducer/isAddNewTask";
 
@@ -14,7 +14,7 @@ class Modal extends Component {
       desc: "",
       rating: "",
       price: "",
-      sizes: [],
+      sizes: []
     };
   }
 
@@ -32,55 +32,51 @@ class Modal extends Component {
     });
   };
 
-  
-
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);
-    if (nextProps.action === "edit") {
+    if (!nextProps.isAdd) {
       this.setState({
-        id: nextProps.task.id,
-        name: nextProps.task.name,
-        desc: nextProps.task.desc,
-        priority: nextProps.task.priority,
-        status: nextProps.task.status,
-        labelArr: nextProps.task.labelArr,
-        memberIdArr: nextProps.task.memberIdArr
+        id: nextProps.editingProduct.id,
+        name: nextProps.editingProduct.name,
+        desc: nextProps.editingProduct.desc,
+        rating: nextProps.editingProduct.rating,
+        price: nextProps.editingProduct.price,
+        sizes: nextProps.editingProduct.sizes,
       });
     } else {
       this.setState({
         id: "",
         name: "",
         desc: "",
-        priority: "",
-        status: "",
-        labelArr: [],
-        memberIdArr: []
+        rating: "",
+        price: 0,
+        sizes: [],
       });
     }
   }
 
   onSubmit = e => {
     e.preventDefault();
-    let newProduct = new Task(
+    let newProduct = new Product(
       this.state.id,
       this.state.name,
       this.state.desc,
       this.state.rating,
       +this.state.price,
-      this.state.size,
+      this.state.sizes
     );
-     console.log(this.props.isAdd);
-    if (this.props.isAdd === true) {
-      console.log("add-products")
+    console.log(this.props.isAdd);
+    if (this.props.isAdd) {
+      console.log("add-products");
       this.props.addProduct(newProduct);
     } else {
       //console.log(newTask)
-      // this.props.editTask(newTask);
+       this.props.editProduct(newProduct);
     }
   };
 
   render() {
-    let { task, action, isAdd } = this.props;
+    let { task, action, isAdd, editingProduct } = this.props;
 
     return (
       <div className="modal fade" id="modalTask">
@@ -89,7 +85,7 @@ class Modal extends Component {
             {/* Modal Header */}
             <div className="modal-header">
               <h4 className="modal-title">
-                {isAdd  ? "Add a new product" : "Edit Product"}
+                {isAdd ? "Add a new product" : "Edit Product"}
               </h4>
               <button type="button" className="close" data-dismiss="modal">
                 ×
@@ -155,6 +151,9 @@ class Modal extends Component {
                   value={this.state.sizes}
                   onChange={this.sizeChange}
                 >
+                  <Checkbox value="XS" />
+                  XS
+                  <br />
                   <Checkbox value="S" />
                   S
                   <br />
@@ -171,14 +170,12 @@ class Modal extends Component {
 
                 <br />
                 <br />
-                
 
                 {/* Modal footer */}
                 <div className="modal-footer">
-                    <button type="submit" className="btn btn-success">
-                      {isAdd ? "Add" : "Edit"}
-                    </button>
-                  
+                  <button type="submit" className="btn btn-success">
+                    {isAdd ? "Add" : "Edit"}
+                  </button>
 
                   <button
                     type="button"
@@ -198,7 +195,7 @@ class Modal extends Component {
 }
 
 const mapStateToProps = state => {
-  return { isAdd: state.isAddNewTask };
+  return { isAdd: state.isAddNewTask, editingProduct: state.editingProduct };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -206,8 +203,13 @@ const mapDispatchToProps = dispatch => {
     addProduct: prod => {
       dispatch(actions.addProduct(prod));
     },
-    
+    editProduct: prod => {
+      dispatch(actions.editProduct(prod));
+    }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Modal);
