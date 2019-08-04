@@ -4,7 +4,6 @@ import Control from "../Components/Controls";
 import Modal from "../Components/Modal";
 import ProductItems from "../Components/ProductItems";
 import listOfProducts from "../Model/getData";
-import Task from "../Model/Product";
 
 class Homepage extends Component {
 
@@ -22,44 +21,11 @@ class Homepage extends Component {
 
   componentWillMount = ()=>{
     console.log("will mount")
-    let taskJson = JSON.parse(localStorage.getItem("tasks")) || listOfProducts.list;
+    let taskJson = JSON.parse(localStorage.getItem("products")) || listOfProducts.list;
     listOfProducts.list = taskJson;
     this.setState({
       taskList: taskJson
     })
-  }
-
-  generateData = ()=>{
-    localStorage.setItem("tasks",JSON.stringify(listOfProducts.list));
-  }
-
-  
-
-  addNewTask = (data)=>{
-    console.log(data);
-    listOfProducts.addNewProduct(data);
-    this.setState({
-      taskList: listOfProducts.list
-    })
-    localStorage.setItem("tasks", JSON.stringify(listOfProducts.list));
-  }
-
-  editTask = (data)=>{
-    console.log(data);
-    listOfProducts.editTask(data);
-    this.setState({
-      taskList: listOfProducts.list
-    })
-    localStorage.setItem("tasks", JSON.stringify(listOfProducts.list));
-  }
-
-  deleteTask = (data)=>{
-    console.log(data);
-    listOfProducts.deleteTask(data);
-    this.setState({
-      taskList: listOfProducts.list
-    })
-    localStorage.setItem("tasks", JSON.stringify(listOfProducts.list));
   }
 
   changeSortType = type=>{
@@ -82,17 +48,6 @@ class Homepage extends Component {
     })
   }
   
-  changeProgressStatus = (id, status)=>{
-    console.log(id, status);
-    debugger
-    listOfProducts.list = JSON.parse(localStorage.getItem("tasks")) ;
-    let idx = listOfProducts.findTaskIndex(id);
-    listOfProducts.list[idx].status = +status;
-    localStorage.setItem("tasks", JSON.stringify(listOfProducts.list));
-    this.setState({
-      taskList: listOfProducts.list
-    })
-  }
 
   render() {
     let {filterType, filterData} = this.state;
@@ -101,13 +56,13 @@ class Homepage extends Component {
         <div className="container-fluid">
           <div className="row">
             {/* PANEL */}
-            <Control filter={this.filter}   generateData={this.generateData} changeSortType={this.changeSortType}/>
+            <Control filter={this.filter} changeSortType={this.changeSortType}/>
             {/* DISPLAY */}
-            <ProductItems changeProgressStatus={this.changeProgressStatus} filterType={filterType} filterData={filterData}  sortType={this.state.sortType} tasks={this.state.taskList} deleteTask={this.deleteTask} openModal={this.openModal}/>
+            <ProductItems   sortType={this.state.sortType}  openModal={this.openModal}/>
           </div>
         </div>
         {/* The Modal */}
-        <Modal addNewTask={this.addNewTask} editTask={this.editTask} task={this.state.task} action={this.state.action}/>
+        <Modal  action={this.state.action}/>
       </div>
     );
   }

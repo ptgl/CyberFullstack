@@ -1,4 +1,4 @@
-import type from "../const";
+import {type} from "../const";
 
 export const openAddModal = () => {
   return {
@@ -20,16 +20,14 @@ export const addProduct = product => {
   };
 };
 
-export const deleteProduct = product => {
-  // console.log(product);
+export const deleteProduct = productId => {
   return {
     type: type.DELETE_PRODUCT,
-    product
+    productId
   };
 };
 
 export const getEditingProduct = product => {
-  // console.log(product);
   return {
     type: type.GET_EDITING_PRODUCT,
     product
@@ -37,9 +35,23 @@ export const getEditingProduct = product => {
 };
 
 export const editProduct = product => {
-  // console.log(product);
   return {
     type: type.EDIT_PRODUCT,
     product
+  };
+};
+
+
+export const addToCart = productId => {
+  return {
+    type: type.ADD_TO_CART,
+    productId
+  };
+};
+
+export const filterSize = sizes => {
+  return {
+    type: type.FILTER_SIZE,
+    sizes
   };
 };

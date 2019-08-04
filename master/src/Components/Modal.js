@@ -3,18 +3,18 @@ import { Checkbox, CheckboxGroup } from "react-checkbox-group";
 import Product from "../Model/Product";
 import * as actions from "../Action/actions";
 import { connect } from "react-redux";
-import isAddNewTask from "../Reducer/isAddNewTask";
-
+import { SIZES } from "../const";
 class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: "",
       name: "",
-      desc: "",
+      description: "",
       rating: "",
-      price: "",
-      sizes: []
+      price: 0,
+      sizes: [],
+      image:""
     };
   }
 
@@ -38,19 +38,21 @@ class Modal extends Component {
       this.setState({
         id: nextProps.editingProduct.id,
         name: nextProps.editingProduct.name,
-        desc: nextProps.editingProduct.desc,
+        description: nextProps.editingProduct.description,
         rating: nextProps.editingProduct.rating,
         price: nextProps.editingProduct.price,
         sizes: nextProps.editingProduct.sizes,
+        image: nextProps.editProduct.image
       });
     } else {
       this.setState({
         id: "",
         name: "",
-        desc: "",
+        description: "",
         rating: "",
         price: 0,
         sizes: [],
+        image: ""
       });
     }
   }
@@ -60,10 +62,11 @@ class Modal extends Component {
     let newProduct = new Product(
       this.state.id,
       this.state.name,
-      this.state.desc,
+      this.state.description,
       this.state.rating,
       +this.state.price,
-      this.state.sizes
+      this.state.sizes,
+      this.state.image
     );
     console.log(this.props.isAdd);
     if (this.props.isAdd) {
@@ -71,13 +74,13 @@ class Modal extends Component {
       this.props.addProduct(newProduct);
     } else {
       //console.log(newTask)
-       this.props.editProduct(newProduct);
+      this.props.editProduct(newProduct);
     }
   };
 
   render() {
     let { task, action, isAdd, editingProduct } = this.props;
-
+    let sizeItems = SIZES.map((s, idx) => <Checkbox key={idx} value={s} />);
     return (
       <div className="modal fade" id="modalTask">
         <div className="modal-dialog modal-lg">
@@ -121,9 +124,9 @@ class Modal extends Component {
                   <textarea
                     onChange={this.handleChange}
                     className="form-control"
-                    value={this.state.desc}
+                    value={this.state.description}
                     rows={2}
-                    name="desc"
+                    name="description"
                     id="description"
                   />
                 </div>
@@ -143,6 +146,7 @@ class Modal extends Component {
                     <option value="5">5</option>
                   </select>
                 </div>
+
                 <label htmlFor="">Sizes:</label>
                 <br />
 
@@ -152,23 +156,35 @@ class Modal extends Component {
                   onChange={this.sizeChange}
                 >
                   <Checkbox value="XS" />
-                  XS
-                  <br />
+                  XS &nbsp;
                   <Checkbox value="S" />
-                  S
-                  <br />
+                  S &nbsp;
                   <Checkbox value="M" />
-                  M
-                  <br />
+                  M &nbsp;
                   <Checkbox value="L" />
-                  L
+                  L &nbsp;
                   <br />
+                  <Checkbox value="ML" />
+                  ML &nbsp;
+                  <Checkbox value="L" />
+                  L &nbsp;
                   <Checkbox value="XL" />
-                  XL
-                  <br />
+                  XL &nbsp;
+                  <Checkbox value="XXL" />
+                  XXL &nbsp;
                 </CheckboxGroup>
 
                 <br />
+                <label htmlFor="image">Choose a profile picture:</label>
+                <br />
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/png, image/jpeg"  
+                  onChange={this.handleChange}
+                  value={this.state.image}
+                />
                 <br />
 
                 {/* Modal footer */}

@@ -30,6 +30,7 @@ class Item extends Component {
 
   render() {
     let { data } = this.props;
+    let img = data.image.split('\\').pop();
     // let imgSrc = data.img.startsWith("http") ? data.img : `./img/${data.img}`;
     return (
       <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-lg-4 mt-5">
@@ -37,7 +38,7 @@ class Item extends Component {
           <div className="product-item" style={{ width: 300 }}>
             <img
               className="card-img-top"
-              src="./img/sp_note7.png"
+              src={`./img/${img}`}
               alt="Card image"
               style={{ maxWidth: "100%", height: 250 }}
             />
@@ -48,13 +49,13 @@ class Item extends Component {
                   value={data.price}
                   displayType={"text"}
                   thousandSeparator={true}
-                  suffix={"đ"}
+                  prefix={"$"}
                 />
               </h3>
-              <p className="card-text">
+              {/* <p className="card-text">
                 The Galaxy Note7 comes with a perfectly symmetrical design for
                 good reason
-              </p>
+              </p> */}
               <a
                 href="#"
                 className="btn btn-info"
@@ -67,11 +68,11 @@ class Item extends Component {
               <a
                 href="#"
                 className="btn btn-danger"
-                onClick={() => this.props.deleteProduct(data)}
+                onClick={() => this.props.deleteProduct(data.id)}
               >
                 Delete
               </a>
-              <a href="#" className="btn btn-danger">
+              <a href="#" className="btn btn-danger" onClick={()=>this.props.addToCart(data.id)}>
                 Add to Cart
               </a>
             </div>
@@ -92,6 +93,9 @@ const mapDispatchToProps = dispatch => {
     },
     getEditingProduct: prod=>{
       dispatch(action.getEditingProduct(prod))
+    },
+    addToCart: id=>{
+      dispatch(action.addToCart(id))
     }
   };
 };

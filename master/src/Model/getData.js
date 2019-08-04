@@ -8,12 +8,12 @@ for (let item of ProductData) {
   listOfProducts.addNewProduct(
     new Product(
       item.id,
-      item.desc,
       item.name,
+      item.description,
       item.rate,
       item.price,
       item.sizes,
-      item.img
+      item.image
     )
   );
 }

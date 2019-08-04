@@ -132,3 +132,8 @@ table th {
   width: 50%;
   margin: 0 auto;
 }
+
+.filters-available-size label input:checked~.checkmark {
+  background-color: #1b1a20;
+  color: #ececec;
+}

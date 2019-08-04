@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
 import AddNewTask from "./Controls/AddNewTask";
-import FilterLabel from "./Controls/FilterLabel";
-import InitializeTask from "./Controls/InitializeTask";
+import FilterSize from "./Controls/FilterSize";
 import Sort from "./Controls/Sort";
 
 class Controls extends Component {
@@ -17,12 +16,9 @@ class Controls extends Component {
 
         <AddNewTask openModal={this.props.openModal} />
 
-        <InitializeTask generateData={this.props.generateData}/>
-
         <div className="px-3">
 
-          <FilterLabel filter={this.props.filter} />
-
+          <FilterSize filter={this.props.filter} />
 
           <Sort changeSortType={this.props.changeSortType}/>
         </div>

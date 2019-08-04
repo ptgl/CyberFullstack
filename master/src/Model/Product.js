@@ -1,13 +1,13 @@
 var randomId = require("random-id");
 
 export default class Product {
-  constructor(id, name, desc, rate, price, size, img) {
+  constructor(id, name, description, rate, price, size, image) {
     this.id = id || randomId(5, "0");
     this.name = name;
-    this.desc = desc;
+    this.description = description;
     this.rate = rate;
     this.price = price || 0;
     this.sizes = size;
-    this.img = img;
+    this.image = image;
   }
 }

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Item from "./Products/Item";
 import Cart from "./Products/Cart";
 import Account from "./Products/Account";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 class ProductItems extends Component {
   constructor(props) {
@@ -20,15 +20,15 @@ class ProductItems extends Component {
   };
 
   render() {
-    let { sortType, tasks, filterType, filterData, productList } = this.props;
-debugger;
+    let { sortType, filterSize, productList } = this.props;
+
     //search
-    tasks = tasks.filter(o =>
+    productList = productList.filter(o =>
       o.name.toLowerCase().match(this.state.searchKey.toLowerCase())
     );
 
     //sort
-    tasks.sort((a, b) => {
+    productList.sort((a, b) => {
       let x = a.name.toLowerCase();
       let y = b.name.toLowerCase();
 
@@ -39,26 +39,10 @@ debugger;
     });
 
     //filter
-    switch (filterType) {
-      case "priority":
-        tasks =
-          filterData.toLowerCase() === "all"
-            ? tasks
-            : tasks.filter(o => o.priority === filterData);
-        break;
-      case "label":
-        tasks =
-          filterData.toLowerCase() === "all"
-            ? tasks
-            : tasks.filter(o => o.labelArr.includes(filterData));
-        break;
-      case "progress":
-        tasks =
-          +filterData === -1
-            ? tasks
-            : tasks.filter(o => o.status === filterData);
-        break;
-      default:
+    if (filterSize.length > 0) {
+      productList = productList.filter(o => {
+        return o.sizes.filter(x => filterSize.includes(x)).length > 0;
+      });
     }
     //show items
     let items = productList.map((o, idx) => (
@@ -93,7 +77,7 @@ debugger;
             </div>
             <div className="col-md-6">
               <Cart />
-              <Account/>
+              <Account />
             </div>
           </div>
         </div>
@@ -103,12 +87,11 @@ debugger;
   }
 }
 
-
-const mapStateToProps = (state) =>{
+const mapStateToProps = state => {
   return {
-    productList: state.productList
-    
-  }
-}
+    productList: state.productList,
+    filterSize: state.filterSize
+  };
+};
 
 export default connect(mapStateToProps)(ProductItems);

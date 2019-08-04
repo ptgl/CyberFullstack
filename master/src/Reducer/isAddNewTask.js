@@ -1,4 +1,4 @@
-import type from "../const"
+import {type} from "../const"
 
 const initialState = true;
 
