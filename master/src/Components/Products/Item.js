@@ -52,13 +52,13 @@ class Item extends Component {
                   prefix={"$"}
                 />
               </h3>
-              {/* <p className="card-text">
-                The Galaxy Note7 comes with a perfectly symmetrical design for
-                good reason
-              </p> */}
+              
+              <a href="#" className="btn btn-danger mb-1" onClick={()=>this.props.addToCart(data.id)}>
+                Add to Cart
+              </a><br/>
               <a
                 href="#"
-                className="btn btn-info"
+                className="btn btn-success mr-1"
                 data-toggle="modal"
                 data-target="#modalTask"
                 onClick={()=>{this.props.openModal(); this.props.getEditingProduct(data)}}
@@ -71,9 +71,6 @@ class Item extends Component {
                 onClick={() => this.props.deleteProduct(data.id)}
               >
                 Delete
-              </a>
-              <a href="#" className="btn btn-danger" onClick={()=>this.props.addToCart(data.id)}>
-                Add to Cart
               </a>
             </div>
           </div>

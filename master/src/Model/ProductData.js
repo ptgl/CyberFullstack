@@ -3,8 +3,8 @@ var randomId = require("random-id");
 const ProductData = [
   {
     id: randomId(5, "0"),
-    name: "Ao thun",
-    description: "Ao thun",
+    name: "White DGK Script Te",
+    description: "White DGK Script Te",
     price: 10,
     rating: 1,
     sizes: ["S", "XS", "ML"],
@@ -12,8 +12,8 @@ const ProductData = [
   },
   {
     id: randomId(5, "0"),
-    name: "Dam",
-    description: "Design UI/UX",
+    name: "Cat Tee Black T-Shirt",
+    description: "Cat Tee Black T-Shirt",
     price: 20,
     rating: 1,
     sizes: ["S", "XL"],
@@ -21,8 +21,8 @@ const ProductData = [
   },
   {
     id: randomId(5, "0"),
-    name: "Ao so mi T shirt",
-    description: "Design UI/UX",
+    name: "Dark Thug Blue-Navy T-Shirt",
+    description: "Dark Thug Blue-Navy T-Shirt",
     price: 12,
     rating: 1,
     sizes: ["M", "L"],
@@ -30,8 +30,8 @@ const ProductData = [
   },
   {
     id: randomId(5, "0"),
-    name: "Quan tay",
-    description: "Design UI/UX",
+    name: "Skuul",
+    description: "Skuul",
     price: 30,
     rating: 1,
     sizes: ["S", "M"],
@@ -39,17 +39,17 @@ const ProductData = [
   },
   {
     id: randomId(5, "0"),
-    name: "Code Backend",
-    description: "Code Backend",
-    price: 10000,
+    name: "Wine Skul T-Shirt",
+    description: "Wine Skul T-Shirt",
+    price: 123,
     rating: 1,
     sizes: ["L", "XL"],
     image: "img4.jpg"
   },
   {
     id: randomId(5, "0"),
-    name: "Fix bug Login",
-    description: "Fix bug Login",
+    name: "Danger Knife Grey",
+    description: "Danger Knife Grey",
     price: 10,
     rating: 1,
     sizes: ["S", "XS"],

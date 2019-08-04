@@ -55,3 +55,11 @@ export const filterSize = sizes => {
     sizes
   };
 };
+
+
+export const sortByPrice = sortType => {
+  return {
+    type: type.SORT,
+    sortType
+  };
+};

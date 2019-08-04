@@ -4,6 +4,7 @@ import Item from "./Products/Item";
 import Cart from "./Products/Cart";
 import Account from "./Products/Account";
 import { connect } from "react-redux";
+import { stat } from "fs";
 
 class ProductItems extends Component {
   constructor(props) {
@@ -29,8 +30,8 @@ class ProductItems extends Component {
 
     //sort
     productList.sort((a, b) => {
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
+      let x = a.price;
+      let y = b.price;
 
       let lt = sortType === "asc" ? -1 : 1;
       let gt = sortType === "asc" ? 1 : -1;
@@ -59,11 +60,7 @@ class ProductItems extends Component {
       <div className="col-md-9 px-0">
         <div className="container-fluid px-0">
           <div className="row header header--right d-flex align-items-center mx-0">
-            {/* <div className="col-md-6">
-              <div className=" d-flex justify-content-between">
-                <h3 className="text-left ml-2 ">Danh sách công việc</h3>
-              </div>
-            </div> */}
+           
             <div className="col-md-6">
               <div className="form-group text-left my-0">
                 <input
@@ -90,7 +87,8 @@ class ProductItems extends Component {
 const mapStateToProps = state => {
   return {
     productList: state.productList,
-    filterSize: state.filterSize
+    filterSize: state.filterSize,
+    sortType: state.sortType
   };
 };
 
