@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import AddNewTask from "./Controls/AddNewTask";
+import AddNewTask from "./Controls/AddNew";
 import FilterSize from "./Controls/FilterSize";
 import Sort from "./Controls/Sort";
 

@@ -21,7 +21,7 @@ class ProductItems extends Component {
   };
 
   render() {
-    let { sortType, filterSize, productList } = this.props;
+    let { sortType, filterSize, productList, isLogin, login, logout } = this.props;
 
     //search
     productList = productList.filter(o =>
@@ -74,7 +74,7 @@ class ProductItems extends Component {
             </div>
             <div className="col-md-6">
               <Cart />
-              <Account />
+              <Account isLogin={isLogin} login={login} logout={logout} />
             </div>
           </div>
         </div>

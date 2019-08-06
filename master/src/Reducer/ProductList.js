@@ -2,7 +2,7 @@ import {type} from "../const";
 import listOfProducts from "../Model/getData";
 
 const initialState = listOfProducts.list;
-
+ 
 const ProductList = (state = initialState, action) => {
   let list = [...state];
   let idx;

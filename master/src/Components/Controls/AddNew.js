@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import * as action from "../../Action/actions"
-class AddNewTask extends Component {
+import * as action from "../../Action/actions";
+import { withRouter } from 'react-router-dom'; 
+class AddNew extends Component {
  
 
   render() {
@@ -9,9 +10,7 @@ class AddNewTask extends Component {
       <button
         type="button"
         className="btn my-3 btn--newTask"
-        data-toggle="modal"
-        data-target="#modalTask"
-        onClick={this.props.openModal}
+        onClick={()=>{this.props.history.push(`/add-product`)}}
       >
         <i className="fa fa-pencil-square-o" />
         Add A Product
@@ -28,4 +27,4 @@ const mapDispatchToProps = (dispatch)=>{
   }
 }
 
-export default connect(null, mapDispatchToProps)(AddNewTask);
+export default withRouter(connect(null, mapDispatchToProps)(AddNew));

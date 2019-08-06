@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as action from "../../Action/actions";
 import NumberFormat from "react-number-format";
+import { withRouter } from "react-router-dom";
 
 class Item extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Item extends Component {
 
   render() {
     let { data } = this.props;
-    let img = data.image.split('\\').pop();
+    let img = data.image.split("\\").pop();
     // let imgSrc = data.img.startsWith("http") ? data.img : `./img/${data.img}`;
     return (
       <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-lg-4 mt-5">
@@ -52,16 +53,22 @@ class Item extends Component {
                   prefix={"$"}
                 />
               </h3>
-              
-              <a href="#" className="btn btn-danger mb-1" onClick={()=>this.props.addToCart(data.id)}>
+
+              <a
+                href="#"
+                className="btn btn-danger mb-1"
+                onClick={() => this.props.addToCart(data.id)}
+              >
                 Add to Cart
-              </a><br/>
+              </a>
+              <br />
               <a
                 href="#"
                 className="btn btn-success mr-1"
-                data-toggle="modal"
-                data-target="#modalTask"
-                onClick={()=>{this.props.openModal(); this.props.getEditingProduct(data)}}
+                onClick={() => {
+                  this.props.history.push(`/edit-product/${data.id}`);
+                  this.props.getEditingProduct(data);
+                }}
               >
                 Edit
               </a>
@@ -88,16 +95,18 @@ const mapDispatchToProps = dispatch => {
     deleteProduct: id => {
       dispatch(action.deleteProduct(id));
     },
-    getEditingProduct: prod=>{
-      dispatch(action.getEditingProduct(prod))
+    getEditingProduct: prod => {
+      dispatch(action.getEditingProduct(prod));
     },
-    addToCart: id=>{
-      dispatch(action.addToCart(id))
+    addToCart: id => {
+      dispatch(action.addToCart(id));
     }
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Item);
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(Item)
+);
