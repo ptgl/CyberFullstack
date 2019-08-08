@@ -43,7 +43,7 @@ class Modal extends Component {
         rating: nextProps.editingProduct.rating,
         price: nextProps.editingProduct.price,
         sizes: nextProps.editingProduct.sizes,
-        image: nextProps.editProduct.image
+        image: nextProps.editingProduct.image
       });
     } else {
       this.setState({
@@ -157,8 +157,6 @@ class Modal extends Component {
               S &nbsp;
               <Checkbox value="M" />
               M &nbsp;
-              <Checkbox value="L" />
-              L &nbsp;
               <br />
               <Checkbox value="ML" />
               ML &nbsp;
@@ -179,7 +177,7 @@ class Modal extends Component {
               name="image"
               accept="image/png, image/jpeg"
               onChange={this.handleChange}
-              value={this.state.image}
+              defaultValue={this.state.image}
             />
             <br />
 

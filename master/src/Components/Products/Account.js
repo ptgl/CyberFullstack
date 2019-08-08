@@ -3,7 +3,7 @@ import { useAuth0 } from "../../react-auth0-wrapper";
 
 const Account = () => {
   // render() {
-  const { isAuthenticated, loginWithRedirect, logout, loading, user } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
   console.log(isAuthenticated);
   console.log(user);
   

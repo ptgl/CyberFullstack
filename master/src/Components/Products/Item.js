@@ -30,9 +30,8 @@ class Item extends Component {
   };
 
   render() {
-    let { data } = this.props;
+    let { data, isLogin } = this.props;
     let img = data.image.split("\\").pop();
-    // let imgSrc = data.img.startsWith("http") ? data.img : `./img/${data.img}`;
     return (
       <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-lg-4 mt-5">
         <div className="container">
@@ -62,23 +61,28 @@ class Item extends Component {
                 Add to Cart
               </a>
               <br />
-              <a
-                href="#"
-                className="btn btn-success mr-1"
-                onClick={() => {
-                  this.props.history.push(`/edit-product/${data.id}`);
-                  this.props.getEditingProduct(data);
-                }}
-              >
-                Edit
-              </a>
-              <a
-                href="#"
-                className="btn btn-danger"
-                onClick={() => this.props.deleteProduct(data.id)}
-              >
-                Delete
-              </a>
+
+              {isLogin && (
+                <>
+                  <a
+                    href="#"
+                    className="btn btn-success mr-1"
+                    onClick={() => {
+                      this.props.history.push(`/edit-product/${data.id}`);
+                      this.props.getEditingProduct(data);
+                    }}
+                  >
+                    Edit
+                  </a>
+                  <a
+                    href="#"
+                    className="btn btn-danger"
+                    onClick={() => this.props.deleteProduct(data.id)}
+                  >
+                    Delete
+                  </a>
+                </>
+              )}
             </div>
           </div>
         </div>

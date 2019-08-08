@@ -21,8 +21,8 @@ class ProductItems extends Component {
   };
 
   render() {
-    let { sortType, filterSize, productList, isLogin, login, logout } = this.props;
-
+    let { sortType, filterSize, productList, isLogin, login, logout, user } = this.props;
+console.log(user);
     //search
     productList = productList.filter(o =>
       o.name.toLowerCase().match(this.state.searchKey.toLowerCase())
@@ -50,9 +50,7 @@ class ProductItems extends Component {
       <Item
         key={idx}
         data={o}
-        deleteTask={this.props.deleteTask}
-        openModal={this.props.openModal}
-        changeProgressStatus={this.props.changeProgressStatus}
+        isLogin={isLogin}
       />
     ));
 

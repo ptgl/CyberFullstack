@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as action from "../../Action/actions";
 import { withRouter } from 'react-router-dom'; 
 class AddNew extends Component {
- 
 
   render() {
     return (

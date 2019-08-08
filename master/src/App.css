@@ -137,3 +137,22 @@ table th {
   background-color: #1b1a20;
   color: #ececec;
 }
+
+/* CART */
+.cart-item{
+  background: #ececec69;
+    border-radius: 10px;
+}
+
+.cart-item .cart-img{
+margin: auto 0;
+}
+
+.cart-price{
+  font-size: 20px;
+}
+
+.cart-total{
+  color:red;
+  font-size: 25px
+}

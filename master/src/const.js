@@ -10,4 +10,4 @@ export const type = {
     SORT: "SORT"
 }
 
-export const SIZES = ["XS", "S", "M", "L", "ML", "L", "XL", "XXL"];
+export const SIZES = ["XS", "S", "M", "L", "ML", "XL", "XXL"];

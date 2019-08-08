@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 
-import AddNewTask from "./Controls/AddNew";
+import AddNew from "./Controls/AddNew";
 import FilterSize from "./Controls/FilterSize";
 import Sort from "./Controls/Sort";
 
 class Controls extends Component {
   render() {
+let {isLogin} = this.props;
     return (
       <div className="col-md-3 text-center px-0">
         <div className="header header--left d-flex align-items-center">
@@ -13,8 +14,7 @@ class Controls extends Component {
             Shopping
           </h3>
         </div>
-
-        <AddNewTask openModal={this.props.openModal} />
+        { isLogin && <AddNew />}
 
         <div className="px-3">
 

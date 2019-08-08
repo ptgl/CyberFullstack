@@ -9,7 +9,7 @@ export default class ListOfProducts{
     }
 
     editTask = task => {
-        let idx = this.findTaskIndex(task.id);
+        let idx = this.findProductIndex(task.id);
         this.list[idx] = task;
     }
 
@@ -18,7 +18,7 @@ export default class ListOfProducts{
         this.list.splice(idx, 1);
     }
 
-    findTask = (id)=>{
+    findProduct = (id)=>{
         return this.list.find(o=>o.id === id);
     }
 
