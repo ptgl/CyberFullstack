@@ -11,10 +11,6 @@ const UserSchema = new mongoose.Schema({
     
 })
 
-//implement callback func before save
-UserSchema.pre("save",function preSave(){
-    console.log(this);
-})
 
 const User = mongoose.model("User", UserSchema, "User");
 

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("./controller");
-const jwt = require("jsonwebtoken");
 const { authenticate, authorize } = require("../../../middleware/auth");
 const {uploadImage} = require("../../../middleware/uploadImage")
 
