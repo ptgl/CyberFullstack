@@ -4,7 +4,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-
+const passwordService = require("../../../services/bcrypt");
 
 //req, res, next: middleware
 module.exports.getUsers = (req, res, next) => {
@@ -25,19 +25,15 @@ module.exports.createUsers = (req, res, next) => {
   const { email, password, DOB, userType, phone } = req.body;
 
   const newUser = new User({ email, password, DOB, userType, phone });
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) return res.json(err);
-    bcrypt.hash(password, salt, (er, hash) => {
-      if (err) return res.json(err);
+
+  passwordService
+    .hashPassword(password)
+    .then(hash => {
       newUser.password = hash;
-      newUser
-        .save()
-        .then(user => {
-          res.status(200).json(user);
-        })
-        .catch(err => res.json(err));
-    });
-  });
+      return newUser.save();
+    })
+    .then(user => res.status(200).json(user))
+    .catch(err => res.json(err));
 };
 
 module.exports.getUserById = (req, res, next) => {
@@ -60,41 +56,26 @@ module.exports.updateUserById = (req, res, next) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(400).json({ message: "Id is invalid" });
-  User.findById(id)
-    .then(user => {
+
+  const { email, password, DOB, userType, phone } = req.body;
+
+  Promise.all([passwordService.hashPassword(password), User.findById(id)])
+    .then(values => {
+      // console.log(values);
+      let user = values[1];
+      let hashPassword = values[0];
+
       if (!user)
         return Promise.reject({ status: 404, message: "User not found" });
-
-      const { email, password, DOB, userType, phone } = req.body;
-      console.log(user._doc);
+      //update user
       Object.keys(req.body).forEach(field => {
-        // console.log(field, user[field]);
         user[field] = req.body[field];
       });
+      user.password = hashPassword;
 
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) return res.json(err);
-        bcrypt.hash(user.password, salt, (er, hash) => {
-          if (err) return res.json(err);
-          user.password = hash;
-
-          user
-            .save()
-            .then(user => {
-              res.status(200).json(user);
-            })
-            .catch(err => res.json(err));
-        });
-      });
-
-      // user.email = email;
-      // user.password = password;
-      // user.DOB = DOB;
-      // user.userType = userType;
-      // user.phone = phone;
-      // return user.save();
+      return user.save();
     })
-    // .then(user => res.status(200).json(user))
+    .then(user => res.status(200).json(user))
     .catch(err => {
       if (err.status)
         return res.status(err.status).json({ message: err.message });

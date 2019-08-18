@@ -1,6 +1,7 @@
+const jwt = require("jsonwebtoken");
 
 module.exports.authenticate = (req, res, next) => {
-    console.log(req.headers);
+    // console.log(req.headers);
     const { token } = req.headers;
     jwt.verify(token, "XEDIKE", (err, decoded) => {
       if (err) return res.status(401).json({ message: "token is invalid" });
