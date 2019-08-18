@@ -1,11 +1,8 @@
 const express = require("express");
 const { User } = require("../../../model/User");
-const router = express.Router();
-const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 const passwordService = require("../../../services/bcrypt");
-
+const tokenService = require("../../../services/token");
 //req, res, next: middleware
 module.exports.getUsers = (req, res, next) => {
   User.find()
@@ -92,20 +89,22 @@ module.exports.deleteUserById = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
+  let currentUser;
   User.findOne({ email })
     .then(user => {
       if (!user)
         return Promise.reject({ status: 404, message: "User not found" });
-      bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (!isMatch) res.status(400).json({ message: "wrong password" });
+        currentUser = user;
+      return passwordService.compare(password, user.password);
 
-        const payload = { email: user.email, userType: user.userType };
-
-        jwt.sign(payload, "XEDIKE", { expiresIn: "1h" }, (err, token) => {
-          if (err) res.json(res);
-          res.status(200).json({ success: true, token });
-        });
-      });
+    })
+    .then(isMatch => {
+      if (!isMatch) res.status(400).json({ message: "wrong password" });
+      const payload = { email: currentUser.email, userType: currentUser.userType };
+      return tokenService.createToken(payload, "XEDIKE", { expiresIn: "1h" });
+    })
+    .then(token => {
+      res.status(200).json({ success: true, token });
     })
     .catch(err => {
       if (!err.status) return res.json(err);

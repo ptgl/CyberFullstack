@@ -14,4 +14,13 @@ function hashPassword(password) {
   });
 }
 
-module.exports = {hashPassword}
+function compare(pass1, pass2){
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(pass1, pass2, (err, isMatch) => {
+      if (err) reject(err)
+      resolve(isMatch)
+    })
+  })
+}
+
+module.exports = {hashPassword, compare}
