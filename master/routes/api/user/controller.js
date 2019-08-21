@@ -100,7 +100,7 @@ module.exports.login = (req, res, next) => {
     })
     .then(isMatch => {
       if (!isMatch) res.status(400).json({ message: "wrong password" });
-      const payload = { email: currentUser.email, userType: currentUser.userType };
+      const payload = { id: currentUser.id, email: currentUser.email, userType: currentUser.userType };
       return tokenService.createToken(payload, "XEDIKE", { expiresIn: "1h" });
     })
     .then(token => {

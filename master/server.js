@@ -1,6 +1,7 @@
 const express = require("express");
 const userRouter = require("./routes/api/user");
 const driverRouter = require("./routes/api/driver");
+const tripRouter = require("./routes/api/trip");
 const mongoose = require("mongoose");
 
 mongoose
@@ -23,6 +24,7 @@ app.use("/upload/avatars", express.static('./upload/avatars'))
 //middleware route handler
 app.use("/api/users", userRouter);
 app.use("/api/drivers", driverRouter);
+app.use("/api/trips", tripRouter);
 
 
 // app.use(

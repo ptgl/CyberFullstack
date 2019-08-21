@@ -15,7 +15,7 @@ module.exports.authenticate = (req, res, next) => {
   // flexible type array
   module.exports.authorize = userType => {
     return (req, res, next) => {
-      console.log("author", req.user);
+      console.log("req.user", req.user);
   
   if(userType.includes(req.user.userType)) return next();
   
