@@ -39,11 +39,11 @@ const validatePostInput = async data => {
 errors.date = "Date is required";
   }
 
-  if(validator.isEmpty(data.userType)){
-      errors.userType = "User type is required";
-  }else if(!validator.equals(userType,"admin")){
-errors.userType = "user Type is invalid"
-  }
+//   if(validator.isEmpty(data.userType)){
+//       errors.userType = "User type is required";
+//   }else if(!validator.equals(userType,"admin")){
+// errors.userType = "user Type is invalid"
+//   }
 
   return {
     isValid: _.isEmpty(errors),
