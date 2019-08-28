@@ -3,6 +3,10 @@ const { User } = require("../../../model/User");
 const mongoose = require("mongoose");
 const passwordService = require("../../../services/bcrypt");
 const tokenService = require("../../../services/token");
+const {
+  validatePostInput
+} = require("../../../validation/user/validatePostInput");
+
 //req, res, next: middleware
 module.exports.getUsers = (req, res, next) => {
   User.find()
@@ -14,15 +18,18 @@ module.exports.getUsers = (req, res, next) => {
 
 //create new user
 //acess: Public
-module.exports.createUsers = (req, res, next) => {
+module.exports.createUsers = async (req, res, next) => {
   console.log("create user");
   //validation
+
   //hash password
   //data.req.body
   const { email, password, DOB, userType, phone } = req.body;
 
-  const newUser = new User({ email, password, DOB, userType, phone });
+  const { isValid, errors } = await validatePostInput(req.body);
+  if (!isValid) return res.status(400).json(errors);
 
+  const newUser = new User({ email, password, DOB, userType, phone });
   passwordService
     .hashPassword(password)
     .then(hash => {
@@ -94,13 +101,16 @@ module.exports.login = (req, res, next) => {
     .then(user => {
       if (!user)
         return Promise.reject({ status: 404, message: "User not found" });
-        currentUser = user;
+      currentUser = user;
       return passwordService.compare(password, user.password);
-
     })
     .then(isMatch => {
       if (!isMatch) res.status(400).json({ message: "wrong password" });
-      const payload = { id: currentUser.id, email: currentUser.email, userType: currentUser.userType };
+      const payload = {
+        id: currentUser.id,
+        email: currentUser.email,
+        userType: currentUser.userType
+      };
       return tokenService.createToken(payload, "XEDIKE", { expiresIn: "1h" });
     })
     .then(token => {
