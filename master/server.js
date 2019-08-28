@@ -3,7 +3,10 @@ const userRouter = require("./routes/api/user");
 const driverRouter = require("./routes/api/driver");
 const tripRouter = require("./routes/api/trip");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
+const mongoUri = process.env.NODE_ENV === "dev"  ? process.env.MONGO_URI_LOCAL : process.env.MONGO_URI_PPROD 
+console.log(mongoUri)
 mongoose
   .connect(
     `mongodb+srv://admin:admin@cluster0-4ywex.mongodb.net/test?retryWrites=true&w=majority`
@@ -16,6 +19,8 @@ const port = process.env.PORT || 5000;
 // cmd: $env:PORT = 1234
 
 const app = express();
+
+
 
 app.use('/', express.static('public'));
 //middleware parser

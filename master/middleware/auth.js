@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 module.exports.authenticate = (req, res, next) => {
     // console.log(req.headers);
     const { token } = req.headers;
-    jwt.verify(token, "XEDIKE", (err, decoded) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       if (err) return res.status(401).json({ message: "token is invalid" });
       if (decoded) {
         req.user = decoded;

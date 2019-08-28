@@ -111,7 +111,7 @@ module.exports.login = (req, res, next) => {
         email: currentUser.email,
         userType: currentUser.userType
       };
-      return tokenService.createToken(payload, "XEDIKE", { expiresIn: "1h" });
+      return tokenService.createToken(payload, process.env.SECRET_KEY, { expiresIn: "1h" });
     })
     .then(token => {
       res.status(200).json({ success: true, token });
