@@ -5,13 +5,14 @@ const tripRouter = require("./routes/api/trip");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const mongoUri = process.env.NODE_ENV === "dev"  ? process.env.MONGO_URI_LOCAL : process.env.MONGO_URI_PPROD 
-console.log(mongoUri)
+const mongoUri = process.env.NODE_ENV.trim() === "dev"  ? process.env.MONGO_URI_LOCAL : process.env.MONGO_URI_PPROD 
+console.log( process.env.NODE_ENV, mongoUri)
 mongoose
   .connect(
-    `mongodb+srv://admin:admin@cluster0-4ywex.mongodb.net/test?retryWrites=true&w=majority`
+    mongoUri,
+   // `mongodb+srv://admin:admin@cluster0-4ywex.mongodb.net/test?retryWrites=true&w=majority`,
     //"mongodb://localhost:27017/fs05-xedike",
-     ,{ useNewUrlParser: true, createIndexes: true})
+     { useNewUrlParser: true, createIndexes: true})
   .then(() => console.log("Connected successfully"))
   .catch(console.log);
 
@@ -20,7 +21,18 @@ const port = process.env.PORT || 5000;
 
 const app = express();
 
-
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization, fingerprint'
+  );
+  res.header(
+      'Access-Control-Allow-Methods',
+      'PUT, POST, GET, DELETE, OPTIONS'
+  );
+  next();
+});
 
 app.use('/', express.static('public'));
 //middleware parser
