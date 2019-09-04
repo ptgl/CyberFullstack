@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "debug": "set NODE_ENV=prod && nodemon --inspect server.js"
+    "debug": "set NODE_ENV=dev && nodemon --inspect server.js"
   },
   "keywords": [],
   "author": "",

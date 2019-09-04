@@ -36,7 +36,7 @@ const validatePostInput = async data => {
   }
 
   if(validator.isEmpty(data.DOB)){
-errors.date = "Date is required";
+errors.DOB = "Date is required";
   }
 
 //   if(validator.isEmpty(data.userType)){
