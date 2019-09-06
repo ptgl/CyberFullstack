@@ -1,10 +1,34 @@
-const initialState = {
-    user: {},
-    isAuthenticate: false
-}
+import validateToken from "../helper/validateToken";
 
-const auth  = (state=initialState, action)=>{
-    return state;
-}
+let initialState = {
+  user: {},
+  isAuthenticate: false
+};
 
-export default auth
+if (validateToken().status)
+  initialState = {
+    user: validateToken().decoded,
+    isAuthenticate: true
+  };
+
+const auth = (state = initialState, action) => {
+  switch (action.type) {
+    case "SET_CURRENT_USER":
+      return {
+        user: action.payload,
+        isAuthenticate: true
+      };
+
+    case "LOGOUT":
+      return {
+        user: {},
+        isAuthenticate: false
+      };
+    default:
+      break;
+  }
+
+  return state;
+};
+
+export default auth;

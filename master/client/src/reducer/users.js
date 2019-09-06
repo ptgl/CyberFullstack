@@ -1,5 +1,3 @@
-import axios from "axios";
-
 let initialState = [];
 
 const userReducer = (state = initialState, action )=>{

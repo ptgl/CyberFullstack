@@ -26,7 +26,7 @@ class Text extends Component {
       };
 
     render() {
-        const {item, value, error} = this.props;
+        const {item, error} = this.props;
         return (
             <FormGroup >
               <Label for={`label${item.name}`}>{item.label}</Label>

@@ -4,7 +4,7 @@ import { Button, Form, Container } from "reactstrap";
 import { connect } from "react-redux";
 import { login } from "../../actions/auth";
 
-class Login extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,18 +41,8 @@ class Login extends Component {
 
     return (
       <Container className="text-left">
-        <h1>Login</h1>
+        <h1>Profile</h1>
         <Form onSubmit={this.onSubmit}>
-          {this.dataForm.map((item, idx) => (
-            <Text
-              key={idx}
-              item={item}
-              value={this.state[item.name]}
-              error={errors[item.name]}
-              getFieldValue={this.getFieldValue}
-            />
-          ))}
-
           <Button>Submit</Button>
         </Form>
       </Container>
@@ -69,4 +59,4 @@ const mapStateToProps = states => {
 export default connect(
   mapStateToProps,
   { login }
-)(Login);
+)(Profile);
